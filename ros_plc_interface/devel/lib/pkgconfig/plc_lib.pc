@@ -1,0 +1,8 @@
+prefix=/home/ankur/Documents/difacto_mowito/mw_mitsubishi_plc_interface/ros_plc_interface/devel
+
+Name: plc_lib
+Description: Description of plc_lib
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<launch>
+
+  <!-- run teleop_plc -->  
+  <node pkg="remote_teleop" type="teleop_plc.py" name="teleop_plc" output="screen"/>
+
+  <!-- run teleop_twist_keyboard -->
+  <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen"/>
+
+</launch>

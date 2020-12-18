@@ -1,0 +1,5 @@
+2020-12-18 09:19:33 INFO     Beginning Interface initialization checks with Mitsubishi Q03UDE PLC
+2020-12-18 09:19:33 INFO     Connecting to PLC
+2020-12-18 09:19:33 ERROR    Unable to perform read/write checks on PLC as PLC is not connected.
+2020-12-18 09:19:33 DEBUG    Please check PC-Router/Switch link OR PLC-router/switch link
+2020-12-18 09:19:33 INFO     Exiting PLC interface initialization checks
