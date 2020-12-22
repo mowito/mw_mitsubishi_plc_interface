@@ -1,7 +1,0 @@
-set(plc_lib_SETUP_PY_SETUP_MODULE "distutils.core")
-set(plc_lib_SETUP_PY_VERSION "0.0.0")
-set(plc_lib_SETUP_PY_SCRIPTS "")
-set(plc_lib_SETUP_PY_PACKAGES "plc_lib")
-set(plc_lib_SETUP_PY_PACKAGE_DIRS "src/plc_lib")
-set(plc_lib_SETUP_PY_MODULES "")
-set(plc_lib_SETUP_PY_MODULE_DIRS "")

@@ -1,5 +1,136 @@
-2020-12-18 09:19:33 INFO     Beginning Interface initialization checks with Mitsubishi Q03UDE PLC
-2020-12-18 09:19:33 INFO     Connecting to PLC
-2020-12-18 09:19:33 ERROR    Unable to perform read/write checks on PLC as PLC is not connected.
-2020-12-18 09:19:33 DEBUG    Please check PC-Router/Switch link OR PLC-router/switch link
-2020-12-18 09:19:33 INFO     Exiting PLC interface initialization checks
+2020-12-18 12:30:24 INFO     Beginning Interface initialization checks with Mitsubishi Q03UDE PLC
+2020-12-18 12:30:24 INFO     Connecting to PLC
+2020-12-18 12:30:24 INFO     Connected to PLC successfully
+2020-12-18 12:30:24 INFO     Performing Read and Write Operations on PLC
+2020-12-18 12:30:24 INFO     Performing Read/Write on Register : M1000
+2020-12-18 12:30:24 INFO     Writing value : False to register M1000
+2020-12-18 12:30:24 INFO     Value read from register M1000 is : 0
+2020-12-18 12:30:24 INFO     Writing value : True to register M1000
+2020-12-18 12:30:24 INFO     Value read from register M1000 is : 1
+2020-12-18 12:30:24 INFO     Writing value : False to register M1000
+2020-12-18 12:30:24 INFO     Value read from register M1000 is : 0
+2020-12-18 12:30:24 INFO     Writing value : True to register M1000
+2020-12-18 12:30:24 INFO     Value read from register M1000 is : 1
+2020-12-18 12:30:24 INFO     Writing value : False to register M1000
+2020-12-18 12:30:24 INFO     Value read from register M1000 is : 0
+2020-12-18 12:30:24 INFO     Read/Write on register M1000 completed with success rate : 100
+2020-12-18 12:30:24 INFO     Read/Write on Register : M1000 Test....[PASSED]
+2020-12-18 12:30:24 INFO     Performing Read/Write on Register : M1001
+2020-12-18 12:30:24 INFO     Writing value : False to register M1001
+2020-12-18 12:30:24 INFO     Value read from register M1001 is : 0
+2020-12-18 12:30:24 INFO     Writing value : True to register M1001
+2020-12-18 12:30:24 INFO     Value read from register M1001 is : 1
+2020-12-18 12:30:24 INFO     Writing value : False to register M1001
+2020-12-18 12:30:24 INFO     Value read from register M1001 is : 0
+2020-12-18 12:30:24 INFO     Writing value : True to register M1001
+2020-12-18 12:30:24 INFO     Value read from register M1001 is : 1
+2020-12-18 12:30:24 INFO     Writing value : False to register M1001
+2020-12-18 12:30:24 INFO     Value read from register M1001 is : 0
+2020-12-18 12:30:24 INFO     Read/Write on register M1001 completed with success rate : 100
+2020-12-18 12:30:24 INFO     Read/Write on Register : M1001 Test....[PASSED]
+2020-12-18 12:30:24 INFO     Performing Read/Write on Register : M1002
+2020-12-18 12:30:24 INFO     Writing value : False to register M1002
+2020-12-18 12:30:24 INFO     Value read from register M1002 is : 0
+2020-12-18 12:30:24 INFO     Writing value : True to register M1002
+2020-12-18 12:30:24 INFO     Value read from register M1002 is : 1
+2020-12-18 12:30:24 INFO     Writing value : False to register M1002
+2020-12-18 12:30:24 INFO     Value read from register M1002 is : 0
+2020-12-18 12:30:24 INFO     Writing value : True to register M1002
+2020-12-18 12:30:24 INFO     Value read from register M1002 is : 1
+2020-12-18 12:30:24 INFO     Writing value : False to register M1002
+2020-12-18 12:30:24 INFO     Value read from register M1002 is : 0
+2020-12-18 12:30:24 INFO     Read/Write on register M1002 completed with success rate : 100
+2020-12-18 12:30:24 INFO     Read/Write on Register : M1002 Test....[PASSED]
+2020-12-18 12:30:24 INFO     Performing Read/Write on Register : M1003
+2020-12-18 12:30:24 INFO     Writing value : False to register M1003
+2020-12-18 12:30:24 INFO     Value read from register M1003 is : 0
+2020-12-18 12:30:24 INFO     Writing value : True to register M1003
+2020-12-18 12:30:24 INFO     Value read from register M1003 is : 1
+2020-12-18 12:30:24 INFO     Writing value : False to register M1003
+2020-12-18 12:30:24 INFO     Value read from register M1003 is : 0
+2020-12-18 12:30:24 INFO     Writing value : True to register M1003
+2020-12-18 12:30:24 INFO     Value read from register M1003 is : 1
+2020-12-18 12:30:24 INFO     Writing value : False to register M1003
+2020-12-18 12:30:24 INFO     Value read from register M1003 is : 0
+2020-12-18 12:30:24 INFO     Read/Write on register M1003 completed with success rate : 100
+2020-12-18 12:30:24 INFO     Read/Write on Register : M1003 Test....[PASSED]
+2020-12-18 12:30:24 INFO     Performing Read/Write on Register : M1004
+2020-12-18 12:30:24 INFO     Writing value : False to register M1004
+2020-12-18 12:30:24 INFO     Value read from register M1004 is : 0
+2020-12-18 12:30:24 INFO     Writing value : True to register M1004
+2020-12-18 12:30:24 INFO     Value read from register M1004 is : 1
+2020-12-18 12:30:24 INFO     Writing value : False to register M1004
+2020-12-18 12:30:24 INFO     Value read from register M1004 is : 0
+2020-12-18 12:30:24 INFO     Writing value : True to register M1004
+2020-12-18 12:30:24 INFO     Value read from register M1004 is : 1
+2020-12-18 12:30:24 INFO     Writing value : False to register M1004
+2020-12-18 12:30:24 INFO     Value read from register M1004 is : 0
+2020-12-18 12:30:24 INFO     Read/Write on register M1004 completed with success rate : 100
+2020-12-18 12:30:24 INFO     Read/Write on Register : M1004 Test....[PASSED]
+2020-12-18 12:30:24 INFO     Performing Read/Write on Register : M1005
+2020-12-18 12:30:24 INFO     Writing value : False to register M1005
+2020-12-18 12:30:24 INFO     Value read from register M1005 is : 0
+2020-12-18 12:30:24 INFO     Writing value : True to register M1005
+2020-12-18 12:30:24 INFO     Value read from register M1005 is : 1
+2020-12-18 12:30:24 INFO     Writing value : False to register M1005
+2020-12-18 12:30:24 INFO     Value read from register M1005 is : 0
+2020-12-18 12:30:24 INFO     Writing value : True to register M1005
+2020-12-18 12:30:24 INFO     Value read from register M1005 is : 1
+2020-12-18 12:30:24 INFO     Writing value : False to register M1005
+2020-12-18 12:30:24 INFO     Value read from register M1005 is : 0
+2020-12-18 12:30:24 INFO     Read/Write on register M1005 completed with success rate : 100
+2020-12-18 12:30:24 INFO     Read/Write on Register : M1005 Test....[PASSED]
+2020-12-18 12:30:24 INFO     Performing Read/Write on Register : M1006
+2020-12-18 12:30:24 INFO     Writing value : False to register M1006
+2020-12-18 12:30:24 INFO     Value read from register M1006 is : 0
+2020-12-18 12:30:24 INFO     Writing value : True to register M1006
+2020-12-18 12:30:24 INFO     Value read from register M1006 is : 1
+2020-12-18 12:30:24 INFO     Writing value : False to register M1006
+2020-12-18 12:30:24 INFO     Value read from register M1006 is : 0
+2020-12-18 12:30:24 INFO     Writing value : True to register M1006
+2020-12-18 12:30:24 INFO     Value read from register M1006 is : 1
+2020-12-18 12:30:24 INFO     Writing value : False to register M1006
+2020-12-18 12:30:24 INFO     Value read from register M1006 is : 0
+2020-12-18 12:30:24 INFO     Read/Write on register M1006 completed with success rate : 100
+2020-12-18 12:30:24 INFO     Read/Write on Register : M1006 Test....[PASSED]
+2020-12-18 12:30:24 INFO     Performing Read/Write on Register : M1007
+2020-12-18 12:30:24 INFO     Writing value : False to register M1007
+2020-12-18 12:30:24 INFO     Value read from register M1007 is : 0
+2020-12-18 12:30:24 INFO     Writing value : True to register M1007
+2020-12-18 12:30:24 INFO     Value read from register M1007 is : 1
+2020-12-18 12:30:24 INFO     Writing value : False to register M1007
+2020-12-18 12:30:24 INFO     Value read from register M1007 is : 0
+2020-12-18 12:30:24 INFO     Writing value : True to register M1007
+2020-12-18 12:30:24 INFO     Value read from register M1007 is : 1
+2020-12-18 12:30:24 INFO     Writing value : False to register M1007
+2020-12-18 12:30:24 INFO     Value read from register M1007 is : 0
+2020-12-18 12:30:24 INFO     Read/Write on register M1007 completed with success rate : 100
+2020-12-18 12:30:24 INFO     Read/Write on Register : M1007 Test....[PASSED]
+2020-12-18 12:30:24 INFO     Performing Read/Write on Register : M1008
+2020-12-18 12:30:24 INFO     Writing value : False to register M1008
+2020-12-18 12:30:24 INFO     Value read from register M1008 is : 0
+2020-12-18 12:30:24 INFO     Writing value : True to register M1008
+2020-12-18 12:30:24 INFO     Value read from register M1008 is : 1
+2020-12-18 12:30:24 INFO     Writing value : False to register M1008
+2020-12-18 12:30:24 INFO     Value read from register M1008 is : 0
+2020-12-18 12:30:24 INFO     Writing value : True to register M1008
+2020-12-18 12:30:24 INFO     Value read from register M1008 is : 1
+2020-12-18 12:30:24 INFO     Writing value : False to register M1008
+2020-12-18 12:30:24 INFO     Value read from register M1008 is : 0
+2020-12-18 12:30:24 INFO     Read/Write on register M1008 completed with success rate : 100
+2020-12-18 12:30:24 INFO     Read/Write on Register : M1008 Test....[PASSED]
+2020-12-18 12:30:24 INFO     Performing Read/Write on Register : M1009
+2020-12-18 12:30:24 INFO     Writing value : False to register M1009
+2020-12-18 12:30:24 INFO     Value read from register M1009 is : 0
+2020-12-18 12:30:24 INFO     Writing value : True to register M1009
+2020-12-18 12:30:24 INFO     Value read from register M1009 is : 1
+2020-12-18 12:30:24 INFO     Writing value : False to register M1009
+2020-12-18 12:30:24 INFO     Value read from register M1009 is : 0
+2020-12-18 12:30:24 INFO     Writing value : True to register M1009
+2020-12-18 12:30:24 INFO     Value read from register M1009 is : 1
+2020-12-18 12:30:24 INFO     Writing value : False to register M1009
+2020-12-18 12:30:24 INFO     Value read from register M1009 is : 0
+2020-12-18 12:30:24 INFO     Read/Write on register M1009 completed with success rate : 100
+2020-12-18 12:30:24 INFO     Read/Write on Register : M1009 Test....[PASSED]
+2020-12-18 12:30:24 INFO     Performing Read/Write on Register : D10
+2020-12-18 12:30:24 INFO     Writing value : 5.1 to register D10

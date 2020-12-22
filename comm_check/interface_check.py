@@ -60,11 +60,11 @@ def main():
         pymc3e._is_connected = False
 
     # List for the registers to be read and wrtitten to
-    boolean_registers = ["X10", "X20", "X30", "X40", "X50", "Y10", "Y20", "Y30", "Y40", "Y50"]
+    boolean_registers = ["M1000", "M1001", "M1002", "M1003", "M1004", "M1005", "M1006", "M1007", "M1008", "M1009"]
     real_registers = ["D10", "D20", "D110", "D120"]
     bit_reg = []
     real_reg = []
-    bool_val = []
+    bool_val_list = []
     real_val = []
 
     # Perform read and write operations only if PLC is connected
@@ -76,7 +76,7 @@ def main():
         for reg in boolean_registers:
             #print("+++ Performing Read/Write on Register : " + reg + " +++")
             logger.info('Performing Read/Write on Register : %s', reg)
-            bool_val = True
+            bool_val = False
             success = 0
             bit_reg.append(reg)
             # loop to perform read write on register 5 times
@@ -85,24 +85,24 @@ def main():
                 # write to register
                 #print("Writing value : "+ str(bool_val) + " to register " + reg)
                 if bool_val:
-                    bool_val.append(1)
+                    bool_val_list.append(1)
                 else:
-                    bool_val.append(0)
-                pymc3e.randomwrite_bitunits(bit_devices=bit_reg, values = bool_val)
+                    bool_val_list.append(0)
+                pymc3e.randomwrite_bitunits(bit_devices=bit_reg, values = bool_val_list)
                 logger.info('Writing value : %s to register %s', str(bool_val), reg)
                 # read register value
                 reg_val = pymc3e.batchread_bitunits(headdevice = reg, readsize = 1)
                 #print("Value read from register " + reg + "is : " + str(reg_val))
-                logger.info('Value read from register %s is : %s', reg, str(reg_val))
+                logger.info('Value read from register %s is : %s', reg, str(reg_val[0]))
                 # comparing if write and read register is true
-                if (reg_val == bool_val):
+                if (reg_val[0] == bool_val_list[0]):
                     success = success + 1
                 # toggle bool_val
                 bool_val = not bool_val
                 # increment counter i
                 i = i + 1
                 # remove bool_val
-                bool_val.pop(0)
+                bool_val_list.pop(0)
             # remove register from list
             bit_reg.remove(reg)
 
@@ -127,7 +127,7 @@ def main():
             i = 0
             real_reg.append(reg)
             for i in range(0,5):
-                write_val = i + 1
+                write_val = (i + 1)*0.1 + 5
                 real_val.append(write_val)
                 # write to register
                 #print("Writing value : "+ str(write_val) + " to register " + reg)

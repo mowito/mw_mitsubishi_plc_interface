@@ -9,7 +9,6 @@ project(remote_teleop)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
-  plc_lib
   rospy
 )
 
