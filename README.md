@@ -62,3 +62,7 @@ To use this module, follow the instructions provided below.
 5. provide velocity commands from the keyboard
 
 6. in another terminal instance/window/tab, to check the odometry data, run the following command
+
+    `rostopic echo /odom`
+
+For more details about this module, contact Mowito
