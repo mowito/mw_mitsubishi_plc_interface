@@ -61,7 +61,7 @@ def main():
 
     # List for the registers to be read and wrtitten to
     boolean_registers = ["M1000", "M1001", "M1002", "M1003", "M1004", "M1005", "M1006", "M1007", "M1008", "M1009"]
-    real_registers = ["D10", "D20", "D110", "D120"]
+    real_registers = ["D100", "D101", "D110", "D111"]
     bit_reg = []
     real_reg = []
     bool_val_list = []
