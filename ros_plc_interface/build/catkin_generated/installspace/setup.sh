@@ -11,7 +11,7 @@
 
 # since this file is sourced either use the provided _CATKIN_SETUP_DIR
 # or fall back to the destination set at configure time
-: ${_CATKIN_SETUP_DIR:=/home/ankur/Documents/difacto_mowito/mw_mitsubishi_plc_interface/ros_plc_interface/install}
+: ${_CATKIN_SETUP_DIR:=/home/tdg/mw_mitsubishi_plc_interface/ros_plc_interface/install}
 _SETUP_UTIL="$_CATKIN_SETUP_DIR/_setup_util.py"
 unset _CATKIN_SETUP_DIR
 

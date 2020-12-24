@@ -25,10 +25,11 @@ import rospy
 import pymcprotocol
 from geometry_msgs.msg import Pose2D, Point, Pose, Quaternion, Vector3, Twist
 from nav_msgs.msg import Odometry
-from tf.broadcaster import TransformBroadcaster
-from tf import transformations
+# import tf
+# from tf import transformations
 import struct
 import math
+
 
 class TeleopPLC:
 
@@ -96,12 +97,30 @@ class TeleopPLC:
         self.plc_motor2_rpm = motor2
         self.plc_motor_rpm_values[0] = self.plc_motor1_rpm
         self.plc_motor_rpm_values[1] = self.plc_motor2_rpm
+        
+    def euler_to_quaternion(self, roll, pitch, yaw):
+        q  = []
+        cy = math.cos(yaw * 0.5)
+        sy = math.sin(yaw * 0.5)
+        cp = math.cos(pitch * 0.5)
+        sp = math.sin(pitch * 0.5)
+        cr = math.cos(roll * 0.5)
+        sr = math.sin(roll * 0.5)
+        wq = cr*cp*cy+sr*sp*sy
+        xq = sr * cp * cy - cr * sp * sy
+        yq = cr * sp * cy + sr * cp * sy
+        zq = cr * cp * sy - sr * sp * cy
+        q.append(xq)
+        q.append(yq)
+        q.append(zq)
+        q.append(wq)
+        return q
 
     # A callback function to publish Odometry Data
     def publish_odom_data(self, timer):
 
-        print("i'm here")
-        odom_tf_broadcast = TransformBroadcaster()
+    
+        # odom_tf_broadcast = tf.broadcaster.TransformBroadcaster()
         
         if (self.mq3_plc._is_connected==True):
             # Write to PLC motors
@@ -121,9 +140,9 @@ class TeleopPLC:
             self.encoder2_val = self.encoder2_val - 2**32
         self.encoder1_val = self.encoder1_val/30
         self.encoder2_val = self.encoder2_val/30
-        rospy.loginfo("Motor1 RPM : %s", str(self.encoder1_val))
-        rospy.loginfo("Motor2 RPM : %s", str(self.encoder2_val))
-
+        #rospy.loginfo("Motor1 RPM : %s", str(self.encoder1_val))
+        #rospy.loginfo("Motor2 RPM : %s", str(self.encoder2_val))
+        rospy.loginfo("Robot Pose : %s", str(self.pose.theta*180/math.pi))
         self.encoder2_val = self.encoder2_val *-1
 
         # Call function to convert encoder values to linear and angular velocities
@@ -134,18 +153,15 @@ class TeleopPLC:
 
         # compute odometry information 
         dt      = (current_time - self.last_time).to_sec()
-        dx      = (v_x*math.cos(self.pose.theta) - v_y*math.sin(self.pose.theta))*dt
-        dy      = (v_x*math.sin(self.pose.theta) + v_y*math.cos(self.pose.theta))*dt
-        dtheta  = w * dt
+        dx      = ((v_x*math.cos(self.pose.theta))*dt)*0.21
+        dy      = ((v_x*math.sin(self.pose.theta))*dt)*0.21
+        dtheta  = (w * dt)*0.2129577465
         self.pose.x     = self.pose.x + dx
         self.pose.y     = self.pose.y + dy
         self.pose.theta = self.pose.theta + dtheta
 
         # since all odometry is 6DOF we'll need a quaternion created from yaw
-        odom_quat = transformations.quaternion_from_euler(0, 0, self.pose.theta)
-
-        # publish the transformation on tf
-        odom_tf_broadcast.sendTransform((self.pose.x, self.pose.y, 0), odom_quat, current_time, "base_link", "odom")
+        odom_quat = self.euler_to_quaternion(0, 0, self.pose.theta)
 
         # publish odometry message over ROS
         odom_data = Odometry()
@@ -153,7 +169,7 @@ class TeleopPLC:
         odom_data.header.frame_id = "odom"
 
         # set the position
-        odom_data.pose.pose = Pose(Point(self.pose.x, self.pose.y, 0.), Quaternion(*odom_quat))
+        odom_data.pose.pose = Pose(Point(self.pose.x, self.pose.y, 0.), Quaternion(odom_quat[0], odom_quat[1], odom_quat[2], odom_quat[3]))
 
         # set the velocity
         odom_data.child_frame_id = "base_link"

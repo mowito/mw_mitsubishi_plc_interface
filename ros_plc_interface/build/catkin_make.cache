@@ -1,2 +1,2 @@
 remote_teleop_mits
--DCATKIN_DEVEL_PREFIX=/home/ankur/Documents/difacto_mowito/mw_mitsubishi_plc_interface/ros_plc_interface/devel -DCMAKE_INSTALL_PREFIX=/home/ankur/Documents/difacto_mowito/mw_mitsubishi_plc_interface/ros_plc_interface/install -G Unix Makefiles
+-DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3 -DPYTHON_INCLUDE_DIR=/usr/include/python3.6m -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.6m.so -DCATKIN_DEVEL_PREFIX=/home/tdg/mw_mitsubishi_plc_interface/ros_plc_interface/devel -DCMAKE_INSTALL_PREFIX=/home/tdg/mw_mitsubishi_plc_interface/ros_plc_interface/install -G Unix Makefiles

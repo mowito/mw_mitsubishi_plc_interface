@@ -29,6 +29,7 @@ from tf.broadcaster import TransformBroadcaster
 from tf import transformations
 import struct
 import math
+from ._tf2 import *
 
 class TeleopPLC:
 
@@ -40,8 +41,8 @@ class TeleopPLC:
         self.m2_rpm = 0
         self.encoder1_val = 0
         self.encoder2_val = 0
-        self.wheel_radius = rospy.get_param("wheel_radius", 0.075)
-        self.wheel_dist   = rospy.get_param("wheel_dist", 0.435)
+        self.wheel_radius = rospy.get_param("wheel_radius", 0.15)
+        self.wheel_dist   = rospy.get_param("wheel_dist", 0.72)
         self.last_time = rospy.Time.now()
         self.pose = Pose2D()
         self.pose.x = 0.0
@@ -52,21 +53,24 @@ class TeleopPLC:
         self.plc_motor_rpm_values = []
         self.plc_motor_rpm_values.append(self.plc_motor1_rpm)
         self.plc_motor_rpm_values.append(self.plc_motor2_rpm)
-        self.plc_encoder_values = []
-        self.plc_encoder_values.append(self.encoder1_val)
-        self.plc_encoder_values.append(self.encoder2_val)
-
+        self.plc_encoder1_values = []
+        self.plc_encoder2_values = []
+        self.plc_encoder1_values = []
+        self.plc_encoder2_values.append(self.encoder2_val)
+        self.plc_encoder2_values.append(self.encoder2_val)
+        self.plc_encoder1_values.append(self.encoder1_val)
+        self.plc_encoder1_values.append(self.encoder1_val)
         # Defining the registers to read PLC actuators and sensors
         self.mq3_plc = pymcprotocol.Type3E()
         self.plc_ip = rospy.get_param("plc_ip_addr", "192.168.1.39")
         self.plc_port   = rospy.get_param("plc_port", 8888)
-        self.m1_addr = rospy.get_param("motor1_addr", "D20")
-        self.m2_addr = rospy.get_param("motor2_addr", "D21")
-        self.encoder1_addr = rospy.get_param("encoder1_addr", "D110")
-        self.encoder2_addr = rospy.get_param("encoder2_addr", "D120")
+        self.m1_addr = rospy.get_param("motor1_addr", "D100")
+        self.m2_addr = rospy.get_param("motor2_addr", "D110")
+        self.encoder1_addr = rospy.get_param("encoder1_addr", "D120")
+        self.encoder2_addr = rospy.get_param("encoder2_addr", "D130")
 
         # Defining odometer publish frequency
-        self.odom_pub_freq = rospy.get_param("odom_pub_freq", 10)
+        self.odom_pub_freq = rospy.get_param("odom_pub_rate", 10)
         self.odom_pub_duration = 1.0/(self.odom_pub_freq)
 
 	    # connect to plc
@@ -102,18 +106,27 @@ class TeleopPLC:
         
         if (self.mq3_plc._is_connected==True):
             # Write to PLC motors
-            self.mq3_plc.batchwrite_wordunits(headdevice=self.m1_addr, values=[self.plc_motor1_rpm])
-            self.mq3_plc.batchwrite_wordunits(headdevice=self.m2_addr, values=[self.plc_motor2_rpm])
+            #self.mq3_plc.batchwrite_wordunits(headdevice=self.m1_addr, values=[self.plc_motor1_rpm])
+            #self.mq3_plc.batchwrite_wordunits(headdevice=self.m2_addr, values=[self.plc_motor2_rpm])
+            self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m1_addr], dword_values=[self.plc_motor1_rpm])
+            self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m2_addr], dword_values=[self.plc_motor2_rpm])
+
             # Read Encoder Data from PLC
-            #self.plc_encoder_values = self.mq3_plc.batchread_wordunits(headdevice=self.encoder1_addr, readsize=2)
-            self.encoder1_val = self.plc_encoder_values[0]
-            self.encoder2_val = self.plc_encoder_values[1]
-        if (self.encoder1_val > 20000):
+            _, self.plc_encoder1_values = self.mq3_plc.randomread(word_devices = [], dword_devices = [self.encoder1_addr])
+            _, self.plc_encoder2_values = self.mq3_plc.randomread(word_devices = [], dword_devices = [self.encoder2_addr])
+            self.encoder1_val = self.plc_encoder1_values[0]
+            self.encoder2_val = self.plc_encoder2_values[0]
+        if (self.encoder1_val > 1000):
             self.encoder1_val = self.encoder1_val - 2**32
-        if (self.encoder2_val > 20000):
+        if (self.encoder2_val > 1000):
             self.encoder2_val = self.encoder2_val - 2**32
-        rospy.loginfo("Motor1 RPM : %s", str(self.plc_motor1_rpm))
-        rospy.loginfo("Motor2 RPM : %s", str(self.plc_motor2_rpm))
+        self.encoder1_val = self.encoder1_val/30
+        self.encoder2_val = self.encoder2_val/30
+        rospy.loginfo("Motor1 RPM : %s", str(self.encoder1_val))
+        rospy.loginfo("Motor2 RPM : %s", str(self.encoder2_val))
+
+        self.encoder2_val = self.encoder2_val *-1
+
         # Call function to convert encoder values to linear and angular velocities
         v_x, v_y, w = self._encoder_to_odometry()
 
@@ -163,23 +176,12 @@ class TeleopPLC:
 
         w_r = 1/(2*self.wheel_radius)*(2*v_lin + self.wheel_dist*w)
         w_l = 1/(2*self.wheel_radius)*(2*v_lin - self.wheel_dist*w)
-
+        
         # defining motor rpm for forward motion
-        if (w_r > 0 and w_l > 0):
-            w_r = w_r
-            w_l = w_l *-1
-        elif (w_r < 0 and w_l < 0):
-            w_r = w_r *-1
-            w_l = w_l
-        elif (w_r > 0 and w_l < 0):
-            w_r = w_r
-            w_l = w_l *-1
-        else:
-            w_r = w_r *-1
-            w_l = w_l
-
-        m1_rpm = int(9.549297 * w_r)*360
-        m2_rpm = int(9.549297 * w_l)*360
+        w_l = w_l *-1
+        
+        m1_rpm = int(9.549297 * w_r)
+        m2_rpm = int(9.549297 * w_l)
 
         if (m1_rpm < 0):
 	        m1_rpm = m1_rpm + 2**32

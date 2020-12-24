@@ -67,14 +67,14 @@ set(remote_teleop_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(remote_teleop_SOURCE_PREFIX /home/ankur/Documents/difacto_mowito/mw_mitsubishi_plc_interface/ros_plc_interface/src/remote_teleop_mits)
-  set(remote_teleop_DEVEL_PREFIX /home/ankur/Documents/difacto_mowito/mw_mitsubishi_plc_interface/ros_plc_interface/devel)
+  set(remote_teleop_SOURCE_PREFIX /home/tdg/mw_mitsubishi_plc_interface/ros_plc_interface/src/remote_teleop_mits)
+  set(remote_teleop_DEVEL_PREFIX /home/tdg/mw_mitsubishi_plc_interface/ros_plc_interface/devel)
   set(remote_teleop_INSTALL_PREFIX "")
   set(remote_teleop_PREFIX ${remote_teleop_DEVEL_PREFIX})
 else()
   set(remote_teleop_SOURCE_PREFIX "")
   set(remote_teleop_DEVEL_PREFIX "")
-  set(remote_teleop_INSTALL_PREFIX /home/ankur/Documents/difacto_mowito/mw_mitsubishi_plc_interface/ros_plc_interface/install)
+  set(remote_teleop_INSTALL_PREFIX /home/tdg/mw_mitsubishi_plc_interface/ros_plc_interface/install)
   set(remote_teleop_PREFIX ${remote_teleop_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/ankur/Documents/difacto_mowito/mw_mitsubishi_plc_interface/ros_plc_interface/install/lib;/home/ankur/Documents/difacto_mowito/mw_mitsubishi_plc_interface/ros_plc_interface/devel/lib;/opt/ros/noetic/lib)
+    foreach(path /home/tdg/mw_mitsubishi_plc_interface/ros_plc_interface/install/lib;/home/tdg/mw_mitsubishi_plc_interface/ros_plc_interface/devel/lib;/opt/ros/melodic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

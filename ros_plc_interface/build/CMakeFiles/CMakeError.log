@@ -1,58 +1,55 @@
-Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
-Change Dir: /home/ankur/Documents/difacto_mowito/mw_mitsubishi_plc_interface/ros_plc_interface/build/CMakeFiles/CMakeTmp
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/tdg/mw_mitsubishi_plc_interface/ros_plc_interface/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/make cmTC_8b69a/fast && /usr/bin/make -f CMakeFiles/cmTC_8b69a.dir/build.make CMakeFiles/cmTC_8b69a.dir/build
-make[1]: Entering directory '/home/ankur/Documents/difacto_mowito/mw_mitsubishi_plc_interface/ros_plc_interface/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_8b69a.dir/src.c.o
-/usr/bin/cc   -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_8b69a.dir/src.c.o   -c /home/ankur/Documents/difacto_mowito/mw_mitsubishi_plc_interface/ros_plc_interface/build/CMakeFiles/CMakeTmp/src.c
-Linking C executable cmTC_8b69a
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8b69a.dir/link.txt --verbose=1
-/usr/bin/cc  -DCMAKE_HAVE_LIBC_PTHREAD    -rdynamic CMakeFiles/cmTC_8b69a.dir/src.c.o  -o cmTC_8b69a 
-/usr/bin/ld: CMakeFiles/cmTC_8b69a.dir/src.c.o: in function `main':
-src.c:(.text+0x46): undefined reference to `pthread_create'
-/usr/bin/ld: src.c:(.text+0x52): undefined reference to `pthread_detach'
-/usr/bin/ld: src.c:(.text+0x63): undefined reference to `pthread_join'
+Run Build Command:"/usr/bin/make" "cmTC_1d8b7/fast"
+/usr/bin/make -f CMakeFiles/cmTC_1d8b7.dir/build.make CMakeFiles/cmTC_1d8b7.dir/build
+make[1]: Entering directory '/home/tdg/mw_mitsubishi_plc_interface/ros_plc_interface/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_1d8b7.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_1d8b7.dir/CheckSymbolExists.c.o   -c /home/tdg/mw_mitsubishi_plc_interface/ros_plc_interface/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_1d8b7
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1d8b7.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_1d8b7.dir/CheckSymbolExists.c.o  -o cmTC_1d8b7 
+CMakeFiles/cmTC_1d8b7.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x1b): undefined reference to `pthread_create'
 collect2: error: ld returned 1 exit status
-make[1]: *** [CMakeFiles/cmTC_8b69a.dir/build.make:87: cmTC_8b69a] Error 1
-make[1]: Leaving directory '/home/ankur/Documents/difacto_mowito/mw_mitsubishi_plc_interface/ros_plc_interface/build/CMakeFiles/CMakeTmp'
-make: *** [Makefile:121: cmTC_8b69a/fast] Error 2
+CMakeFiles/cmTC_1d8b7.dir/build.make:97: recipe for target 'cmTC_1d8b7' failed
+make[1]: *** [cmTC_1d8b7] Error 1
+make[1]: Leaving directory '/home/tdg/mw_mitsubishi_plc_interface/ros_plc_interface/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_1d8b7/fast' failed
+make: *** [cmTC_1d8b7/fast] Error 2
 
-
-Source file was:
+File /home/tdg/mw_mitsubishi_plc_interface/ros_plc_interface/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
 #include <pthread.h>
 
-void* test_func(void* data)
+int main(int argc, char** argv)
 {
-  return data;
-}
-
-int main(void)
-{
-  pthread_t thread;
-  pthread_create(&thread, NULL, test_func, NULL);
-  pthread_detach(thread);
-  pthread_join(thread, NULL);
-  pthread_atfork(NULL, NULL, NULL);
-  pthread_exit(NULL);
-
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
   return 0;
+#endif
 }
 
 Determining if the function pthread_create exists in the pthreads failed with the following output:
-Change Dir: /home/ankur/Documents/difacto_mowito/mw_mitsubishi_plc_interface/ros_plc_interface/build/CMakeFiles/CMakeTmp
+Change Dir: /home/tdg/mw_mitsubishi_plc_interface/ros_plc_interface/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/make cmTC_f536b/fast && /usr/bin/make -f CMakeFiles/cmTC_f536b.dir/build.make CMakeFiles/cmTC_f536b.dir/build
-make[1]: Entering directory '/home/ankur/Documents/difacto_mowito/mw_mitsubishi_plc_interface/ros_plc_interface/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_f536b.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_f536b.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.16/Modules/CheckFunctionExists.c
-Linking C executable cmTC_f536b
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f536b.dir/link.txt --verbose=1
-/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_f536b.dir/CheckFunctionExists.c.o  -o cmTC_f536b  -lpthreads 
+Run Build Command:"/usr/bin/make" "cmTC_15a8e/fast"
+/usr/bin/make -f CMakeFiles/cmTC_15a8e.dir/build.make CMakeFiles/cmTC_15a8e.dir/build
+make[1]: Entering directory '/home/tdg/mw_mitsubishi_plc_interface/ros_plc_interface/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_15a8e.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_15a8e.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_15a8e
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_15a8e.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_15a8e.dir/CheckFunctionExists.c.o  -o cmTC_15a8e -lpthreads 
 /usr/bin/ld: cannot find -lpthreads
 collect2: error: ld returned 1 exit status
-make[1]: *** [CMakeFiles/cmTC_f536b.dir/build.make:87: cmTC_f536b] Error 1
-make[1]: Leaving directory '/home/ankur/Documents/difacto_mowito/mw_mitsubishi_plc_interface/ros_plc_interface/build/CMakeFiles/CMakeTmp'
-make: *** [Makefile:121: cmTC_f536b/fast] Error 2
-
+CMakeFiles/cmTC_15a8e.dir/build.make:97: recipe for target 'cmTC_15a8e' failed
+make[1]: *** [cmTC_15a8e] Error 1
+make[1]: Leaving directory '/home/tdg/mw_mitsubishi_plc_interface/ros_plc_interface/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_15a8e/fast' failed
+make: *** [cmTC_15a8e/fast] Error 2
 
 

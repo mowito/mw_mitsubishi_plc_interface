@@ -7,6 +7,4 @@
 # new environment variables
 
 # modified environment variables
-export LD_LIBRARY_PATH='/opt/ros/noetic/lib'
-export PKG_CONFIG_PATH='/opt/ros/noetic/lib/pkgconfig'
-export PWD='/home/ankur/Documents/difacto_mowito/mw_mitsubishi_plc_interface/ros_plc_interface/build'
+export PWD='/home/tdg/mw_mitsubishi_plc_interface/ros_plc_interface/build'
