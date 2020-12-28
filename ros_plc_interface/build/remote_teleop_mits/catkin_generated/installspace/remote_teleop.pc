@@ -1,8 +1,0 @@
-prefix=/home/tdg/mw_mitsubishi_plc_interface/ros_plc_interface/install
-
-Name: remote_teleop
-Description: Description of remote_teleop
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
