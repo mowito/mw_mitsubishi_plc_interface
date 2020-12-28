@@ -55,8 +55,8 @@ def main():
     # connect to PLC
     logger.info('Connecting to PLC')
     try:
-        pymc3e.connect(ip_addr, port)
-    except ConnectionRefusedError:
+        pymc3e.connect(ip_addr, port, timeout=1.0)
+    except OSError:
         pymc3e._is_connected = False
 
     # List for the registers to be read and wrtitten to
