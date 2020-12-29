@@ -117,14 +117,9 @@ class TeleopPLC:
 
     # A callback function to publish Odometry Data
     def publish_odom_data(self, timer):
-
-    
-        # odom_tf_broadcast = tf.broadcaster.TransformBroadcaster()
         
         if (self.mq3_plc._is_connected==True):
             # Write to PLC motors
-            #self.mq3_plc.batchwrite_wordunits(headdevice=self.m1_addr, values=[self.plc_motor1_rpm])
-            #self.mq3_plc.batchwrite_wordunits(headdevice=self.m2_addr, values=[self.plc_motor2_rpm])
             self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m1_addr], dword_values=[self.plc_motor1_rpm])
             self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m2_addr], dword_values=[self.plc_motor2_rpm])
 
@@ -137,11 +132,9 @@ class TeleopPLC:
             self.encoder1_val = self.encoder1_val - 2**32
         if (self.encoder2_val > 1000):
             self.encoder2_val = self.encoder2_val - 2**32
-        self.encoder1_val = self.encoder1_val/30
-        self.encoder2_val = self.encoder2_val/30
-        #rospy.loginfo("Motor1 RPM : %s", str(self.encoder1_val))
-        #rospy.loginfo("Motor2 RPM : %s", str(self.encoder2_val))
-        rospy.loginfo("Robot Pose : %s", str(self.pose.theta*180/math.pi))
+        self.encoder1_val = self.encoder1_val/(3*2.2727)
+        self.encoder2_val = self.encoder2_val/(3*2.2727)
+        
         self.encoder2_val = self.encoder2_val *-1
 
         # Call function to convert encoder values to linear and angular velocities
@@ -152,9 +145,9 @@ class TeleopPLC:
 
         # compute odometry information 
         dt      = (current_time - self.last_time).to_sec()
-        dx      = ((v_x*math.cos(self.pose.theta))*dt)*0.21
-        dy      = ((v_x*math.sin(self.pose.theta))*dt)*0.21
-        dtheta  = (w * dt)*0.2129577465
+        dx      = ((v_x*math.cos(self.pose.theta))*dt)
+        dy      = ((v_x*math.sin(self.pose.theta))*dt)
+        dtheta  = (w * dt)
         self.pose.x     = self.pose.x + dx
         self.pose.y     = self.pose.y + dy
         self.pose.theta = self.pose.theta + dtheta

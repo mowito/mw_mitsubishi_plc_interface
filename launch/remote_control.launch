@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <launch>
 
-  <param name = "wheel_radius" type = "double" value = "0.15" />
+  <param name = "wheel_radius" type = "double" value = "0.075" />
   <param name = "wheel_dist" type = "double" value = "0.72" />
   <param name = "odom_pub_rate" type = "double" value = "10" />
   <param name = "plc_ip_addr" type = "string" value = "192.168.1.39" />

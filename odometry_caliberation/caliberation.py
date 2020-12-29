@@ -17,8 +17,8 @@ class Caliberate:
         self.pose.theta = 0.0
         self.bag1_filepath = bag1_filepath
         self.bag2_filepath = bag2_filepath
-        self.wheel_radius = 0.08 #0.075
-        self.wheel_dist = 0.43 #0.435
+        self.wheel_radius = 0.075
+        self.wheel_dist = 0.72
         self.bag1_encoder_topic_data = pd.DataFrame([{'a': 1, 'b': 2, 'c':3}, {'a':10, 'b': 20, 'c': 30}])
         self.bag2_encoder_topic_data = pd.DataFrame([{'a': 1, 'b': 2, 'c':3}, {'a':10, 'b': 20, 'c': 30}])
         self.linear_cf = 1
@@ -83,8 +83,6 @@ class Caliberate:
         # Plot the Pose values for linear caliberation
         fig, (ax1, ax2) = plt.subplots(1, 2)
         fig.suptitle('Caliberation plots')
-        #ax1.xlabel('Pose X values')
-        #ax1.xlabel('Pose y values')
         ax1.plot(pose_x_list, pose_y_list, 'b-')
         ax2.plot(count_list, angle_list, 'r-')
         plt.show()

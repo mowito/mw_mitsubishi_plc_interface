@@ -17,7 +17,7 @@
  # ************************************************************************ #
  # This code writes data to a register on the Siemens S7 series PLC         #
  # Author :  Ankur Bodhe (for Mowito Robotic Systems Pvt. Ltd)              #
- # Developed for DiFActo by Mowito Robotic Systems Pvt. Ltd.             #
+ # Developed for DiFActo by Mowito Robotic Systems Pvt. Ltd.                #
  # ************************************************************************ #
 
 import pymcprotocol
