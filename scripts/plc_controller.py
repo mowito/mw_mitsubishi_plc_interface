@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
  # ************************************************************************ #
  # COPYRIGHT MOWITO ROBOTIC SYSTEMS Pvt Ltd.                                #
  # __________________                                                       #
@@ -18,7 +17,7 @@
  # This code reads velocity commands from teleop keyboard and controls plc  #
  # motors                                                                   #
  # Author :  Ankur Bodhe (for Mowito Robotic Systems Pvt. Ltd)              #
- # Developed for Ruchagroup by Mowito Robotic Systems Pvt. Ltd.             #
+ # Developed for Difacto by Mowito Robotic Systems Pvt. Ltd.                #
  # ************************************************************************ #
 
 import rospy
@@ -132,8 +131,8 @@ class TeleopPLC:
             self.encoder1_val = self.encoder1_val - 2**32
         if (self.encoder2_val > 1000):
             self.encoder2_val = self.encoder2_val - 2**32
-        self.encoder1_val = self.encoder1_val/(3*2.2727)
-        self.encoder2_val = self.encoder2_val/(3*2.2727)
+        self.encoder1_val = self.encoder1_val/(30*2.2727)
+        self.encoder2_val = self.encoder2_val/(30*2.2727)
         
         self.encoder2_val = self.encoder2_val *-1
 

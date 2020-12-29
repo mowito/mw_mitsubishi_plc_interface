@@ -1,4 +1,24 @@
 #!/usr/bin/python3
+ # ************************************************************************ #
+ # COPYRIGHT MOWITO ROBOTIC SYSTEMS Pvt Ltd.                                #
+ # __________________                                                       #
+ #                                                                          #
+ # NOTICE:  All information contained herein is, and remains                #
+ # the property of Mowito Robotic Systems Pvt. Ltd and its suppliers,       #
+ # if any.  The intellectual and technical concepts contained               #
+ # herein are proprietary to Mowito Robotic Systems Pvt. Ltd                #
+ # and its suppliers and are protected by trade secret or copyright law.    #
+ # Dissemination of this information or reproduction of this material       #
+ # is strictly forbidden unless prior written permission is obtained        #
+ # from Mowito Robotic System Pvt. Ltd.                                     #
+ # ************************************************************************ #
+ 
+ # ************************************************************************ #
+ # This code performs calibration for odometry                              #
+ #                                                                          #
+ # Author :  Ankur Bodhe (for Mowito Robotic Systems Pvt. Ltd)              #
+ # Developed for Difacto by Mowito Robotic Systems Pvt. Ltd.                #
+ # ************************************************************************ #
 
 from bagpy import bagreader
 import pandas as pd 
@@ -6,6 +26,7 @@ import matplotlib.pyplot as plt
 from geometry_msgs.msg import Pose2D
 import sys
 import math
+from matplotlib.patches import Rectangle
 
 class Caliberate:
 
@@ -17,17 +38,17 @@ class Caliberate:
         self.pose.theta = 0.0
         self.bag1_filepath = bag1_filepath
         self.bag2_filepath = bag2_filepath
-        self.wheel_radius = 0.075
+        self.wheel_radius = 0.07125 
         self.wheel_dist = 0.72
         self.bag1_encoder_topic_data = pd.DataFrame([{'a': 1, 'b': 2, 'c':3}, {'a':10, 'b': 20, 'c': 30}])
         self.bag2_encoder_topic_data = pd.DataFrame([{'a': 1, 'b': 2, 'c':3}, {'a':10, 'b': 20, 'c': 30}])
         self.linear_cf = 1
-        self.angle_cf = 1
+        self.angle_cf = 1  
         
     def encoder_to_velocity(self, encoder_right, encoder_left):
         # Convert encoder data to linear and angular velocity
-        w_r = encoder_right/9.549297
-        w_l = encoder_left/9.549297
+        w_r = encoder_right/(9.549297)
+        w_l = encoder_left/(9.549297)
 
         # Calculate Linear and Angular velocity for the robot
         v_lin = (self.wheel_radius/2)*(w_r + w_l)*self.linear_cf
@@ -83,7 +104,8 @@ class Caliberate:
         # Plot the Pose values for linear caliberation
         fig, (ax1, ax2) = plt.subplots(1, 2)
         fig.suptitle('Caliberation plots')
-        ax1.plot(pose_x_list, pose_y_list, 'b-')
+        ax1.plot(pose_x_list, pose_y_list, 'r-')
+        ax1.add_patch(Rectangle((0,0), 3.95, 2.04, 0.0))
         ax2.plot(count_list, angle_list, 'r-')
         plt.show()
 

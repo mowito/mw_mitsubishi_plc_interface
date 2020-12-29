@@ -6,7 +6,7 @@ This repository is developed to perform the following tasks:
 
 To download this repository and run the interface tests, run the following commands:
 
-Make a Mowtio_PLC_workspce directory and Clone the repository
+Make a difacto workspce directory and Clone the repository
 
 `mkdir -p difacto_ws/src && cd difacto_ws/src`
 
