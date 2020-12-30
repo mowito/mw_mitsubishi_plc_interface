@@ -1,4 +1,3 @@
-# mw_mitsubishi_plc_interface
 This repository is developed to perform the following tasks:
 
 1. Perform a sanity check that confirms coherency in the communication between the PLC and PC
@@ -7,13 +6,15 @@ This repository is developed to perform the following tasks:
 
 To download this repository and run the interface tests, run the following commands:
 
-Clone the repository
+Make a difacto workspce directory and Clone the repository
+
+`mkdir -p difacto_ws/src && cd difacto_ws/src`
 
 `git clone https://github.com/mowito/mw_mitsubishi_plc_interface.git `
 
 `cd mw_mitsubishi_plc_interface`
 
-Change the brnach to 'pc_plc_interface_checks'
+Change the branch to 'pc_plc_interface_checks'
 
 `git checkout 'pc_plc_interface_checks'`
 
@@ -26,11 +27,11 @@ To run this module follow the instructions below :
 
 1.  Go into the comm_check folder
 
-    `cd mw_mitsubishi_plc_interface/comm_check/scripts`
+    `cd ~/difacto_ws/src/mw_mitsubishi_plc_interface/comm_check`
 
 2. Run the python script
 
-    `python3 interface_check.py`
+    `python3 unit_tests.py`
 
 Once the code completes execution, a log file named 'plc_init_checks.log' will be created in the **comm_check/scripts/** folder path which shall contain the result of the communication sanity check of the PC and PLC
 
@@ -45,7 +46,7 @@ To use this module, follow the instructions provided below.
 
 1. go to the ros_plc_interface directory
 
-    `cd ros_plc_interface`
+    `cd ~/difacto_ws/`
 
 2. build the ROS packages
 
@@ -53,15 +54,16 @@ To use this module, follow the instructions provided below.
 
 3. source the ROS workspace
 
-    `source mw_mitsubishi_plc_interface/ros_plc_interface/devel/setup.bash`
+    `source ~/difacto_ws/devel/setup.bash`
 
 4. run the launch file
 
-    `roslaunch remote_teleop remote_control.launch`
+    `roslaunch mw_mitsubishi_plc_interface remote_control.launch`
 
 5. provide velocity commands from the keyboard
 
 6. in another terminal instance/window/tab, to check the odometry data, run the following command
+
     `rostopic echo /odom`
 
-For any queries related to this module, contact Mowito
+Please contact Mowito if you have any queries related to the functioning of this repository and modules.
