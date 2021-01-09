@@ -131,8 +131,8 @@ class TeleopPLC:
             self.encoder1_val = self.encoder1_val - 2**32
         if (self.encoder2_val > 1000):
             self.encoder2_val = self.encoder2_val - 2**32
-        self.encoder1_val = self.encoder1_val/(30*2.2727)
-        self.encoder2_val = self.encoder2_val/(30*2.2727)
+        self.encoder1_val = self.encoder1_val/70
+        self.encoder2_val = self.encoder2_val/70
         
         self.encoder2_val = self.encoder2_val *-1
 
