@@ -1,7 +1,8 @@
+<?xml version="1.0" ?>
 <launch>
-  <arg name="lidar_ip_front"             default="192.168.0.100" />
-  <arg name="lidar_ip_back"             default="192.168.0.101" />
-  <arg name="host_ip"               default="192.168.1.9" />
+  <arg name="lidar_ip_front"             default="192.168.1.51" />
+  <arg name="lidar_ip_back"             default="192.168.1.52" />
+  <arg name="host_ip"               default="192.168.1.200" />
   <arg name="host_udp_port"         default="0" />
   <arg name="frame_id"              default="scan" />
   <arg name="skip"                  default="0" />
@@ -42,7 +43,7 @@
      <remap from="diagnostics"            to="diagnostics_front" />
   </node>
   
-  <!-- Launch Sick SickSafetyscanners Ros Driver Node 2-->
+   Launch Sick SickSafetyscanners Ros Driver Node 2
   <node pkg="sick_safetyscanners" type="sick_safetyscanners_node" name="lidar_back" output="screen" ns="sick_safetyscanners">
      <param name="sensor_ip"              type="string" value="$(arg lidar_ip_back)" />
      <param name="host_ip"                type="string" value="$(arg host_ip)" />
@@ -66,8 +67,16 @@
      <remap from="raw_data"               to="raw_data_back" />
      <remap from="diagnostics"            to="diagnostics_back" />
   </node>
+  
+  <!-- static transform between laser and the robot-->
+  <node pkg="tf" type="static_transform_publisher" name="base_2_laser_front" args="0.45 -0.3 0 -0.785398 0 0 base_link lidar_front 100"/>
 
-
+  <!-- static transform between laser and the robot-->
+  <node pkg="tf" type="static_transform_publisher" name="base_2_laser_back" args="-0.39 0.33 0 2.35 0 0 base_link lidar_back 100"/>
+  
+  <!-- run teleop_plc --> 
+  <node pkg="mw_mitsubishi_plc_interface" type="fused_scan" name="fused_scan" output="screen"/>
+  
   <!-- node name="rqt_reconfigure" pkg="rqt_reconfigure" type="rqt_reconfigure" /-->
 </launch>
 
