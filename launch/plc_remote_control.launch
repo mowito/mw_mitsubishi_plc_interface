@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<launch>
+
+  <param name = "wheel_radius"      type = "double" value = "0.07125" />
+  <param name = "wheel_dist"        type = "double" value = "0.72" />
+  <param name = "odom_pub_rate"     type = "double" value = "10" />
+  <param name = "plc_ip_addr"       type = "string" value = "192.168.1.39" />
+  <param name = "plc_port"          type = "int"    value = "8888" />
+  <param name = "motor1_addr"       type = "string" value = "D100" />
+  <param name = "motor2_addr"       type = "string" value = "D110" />
+  <param name = "encoder1_addr"     type = "string" value = "D120" />
+  <param name = "encoder2_addr"     type = "string" value = "D130" />
+  
+  <!-- run teleop_plc -->  
+  <node pkg="mw_mitsubishi_plc_interface" type="plc_controller.py" name="plc_controller" output="screen"/>
+
+  <!-- run teleop_twist_keyboard -->
+  <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen"/>
+
+</launch>
