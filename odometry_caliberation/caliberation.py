@@ -38,11 +38,11 @@ class Caliberate:
         self.pose.theta = 0.0
         self.bag1_filepath = bag1_filepath
         self.bag2_filepath = bag2_filepath
-        self.wheel_radius = 0.07125 
+        self.wheel_radius = 0.0745 
         self.wheel_dist = 0.72
         self.bag1_encoder_topic_data = pd.DataFrame([{'a': 1, 'b': 2, 'c':3}, {'a':10, 'b': 20, 'c': 30}])
         self.bag2_encoder_topic_data = pd.DataFrame([{'a': 1, 'b': 2, 'c':3}, {'a':10, 'b': 20, 'c': 30}])
-        self.linear_cf = 1
+        self.linear_cf =1
         self.angle_cf = 1  
         
     def encoder_to_velocity(self, encoder_right, encoder_left):
@@ -52,7 +52,7 @@ class Caliberate:
 
         # Calculate Linear and Angular velocity for the robot
         v_lin = (self.wheel_radius/2)*(w_r + w_l)*self.linear_cf
-        w     = (self.wheel_radius/self.wheel_dist)*(w_r - w_l)*self.angle_cf
+        w     = (self.wheel_radius/self.wheel_dist)*(w_l - w_r)*self.angle_cf
 
         # Calculate x and y component of linear velocity
         v_x = v_lin

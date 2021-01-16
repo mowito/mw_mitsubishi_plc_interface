@@ -39,7 +39,7 @@ class TeleopPLC:
         self.m2_rpm = 0
         self.encoder1_val = 0
         self.encoder2_val = 0
-        self.wheel_radius = rospy.get_param("wheel_radius", 0.15)
+        self.wheel_radius = rospy.get_param("wheel_radius", 0.075)
         self.wheel_dist   = rospy.get_param("wheel_dist", 0.72)
         self.last_time = rospy.Time.now()
         self.pose = Pose2D()
@@ -58,7 +58,8 @@ class TeleopPLC:
         self.plc_encoder2_values.append(self.encoder2_val)
         self.plc_encoder1_values.append(self.encoder1_val)
         self.plc_encoder1_values.append(self.encoder1_val)
-        # Defining the registers to read PLC actuators and sensors
+        
+	# Defining the registers to read PLC actuators and sensors
         self.mq3_plc = pymcprotocol.Type3E()
         self.plc_ip = rospy.get_param("plc_ip_addr", "192.168.1.39")
         self.plc_port   = rospy.get_param("plc_port", 8888)
@@ -127,9 +128,9 @@ class TeleopPLC:
             _, self.plc_encoder2_values = self.mq3_plc.randomread(word_devices = [], dword_devices = [self.encoder2_addr])
             self.encoder1_val = self.plc_encoder1_values[0]
             self.encoder2_val = self.plc_encoder2_values[0]
-        if (self.encoder1_val > 1000):
+        if (self.encoder1_val > 2**32/2):
             self.encoder1_val = self.encoder1_val - 2**32
-        if (self.encoder2_val > 1000):
+        if (self.encoder2_val > 2**32/2):
             self.encoder2_val = self.encoder2_val - 2**32
         self.encoder1_val = self.encoder1_val/70
         self.encoder2_val = self.encoder2_val/70
@@ -171,8 +172,8 @@ class TeleopPLC:
         # publish encoder values over encoder pub topic
         encoder = encoder_data()
         encoder.stamp = rospy.Time.now()
-        encoder.right = self.encoder1_val
-        encoder.left  = self.encoder2_val
+        encoder.left = self.encoder1_val
+        encoder.right  = self.encoder2_val
 
         # publish the message
         self.odom_pub.publish(odom_data)
@@ -185,16 +186,18 @@ class TeleopPLC:
         lin_x = velocity.linear.x
         lin_y = velocity.linear.y
         v_lin = math.sqrt(lin_x*lin_x + lin_y*lin_y)
+        if lin_x < 0.0 or lin_y < 0.0:
+            v_lin = v_lin *-1
         w = velocity.angular.z
 
         w_r = 1/(2*self.wheel_radius)*(2*v_lin + self.wheel_dist*w)
         w_l = 1/(2*self.wheel_radius)*(2*v_lin - self.wheel_dist*w)
         
         # defining motor rpm for forward motion
-        w_l = w_l *-1
+        w_r = w_r *-1
         
-        m1_rpm = int(9.549297 * w_r)
-        m2_rpm = int(9.549297 * w_l)
+        m1_rpm = int(9.549297 * w_l)
+        m2_rpm = int(9.549297 * w_r)
 
         if (m1_rpm < 0):
 	        m1_rpm = m1_rpm + 2**32
@@ -211,8 +214,8 @@ class TeleopPLC:
     # A function to convert encoder to odometry
     def _encoder_to_odometry(self):
         # Convert encoder data to linear and angular velocity
-        w_r = self.encoder1_val/9.549297
-        w_l = self.encoder2_val/9.549297
+        w_l = self.encoder1_val/9.549297
+        w_r = self.encoder2_val/9.549297
 
         # Calculate Linear and Angular velocity for the robot
         v_lin = (self.wheel_radius/2)*(w_r + w_l)
