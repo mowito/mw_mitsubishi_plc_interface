@@ -88,7 +88,7 @@ class TeleopPLC:
     def cmd_vel_callback(self, velocity_data):
 
         # print the velocity being read
-        rospy.loginfo("Reading linear velocity [x y w] = [%s %s %s]", velocity_data.linear.x, velocity_data.linear.y, velocity_data.angular.z)
+        #rospy.loginfo("Reading linear velocity [x y w] = [%s %s %s]", velocity_data.linear.x, velocity_data.linear.y, velocity_data.angular.z)
 
     	# Get Motor1 and Motor2 velocty
         motor1, motor2 = self._velocity_to_rpm(velocity_data)

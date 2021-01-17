@@ -52,7 +52,7 @@ class Caliberate:
 
         # Calculate Linear and Angular velocity for the robot
         v_lin = (self.wheel_radius/2)*(w_r + w_l)*self.linear_cf
-        w     = (self.wheel_radius/self.wheel_dist)*(w_l - w_r)*self.angle_cf
+        w     = (self.wheel_radius/self.wheel_dist)*(w_r - w_l)*self.angle_cf
 
         # Calculate x and y component of linear velocity
         v_x = v_lin
