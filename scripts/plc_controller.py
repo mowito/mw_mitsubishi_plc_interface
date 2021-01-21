@@ -228,6 +228,11 @@ class TeleopPLC:
         # Return the linear velocity components(v_x and v_y) and angular velocity(w)
         return v_x, v_y, w
     
+    def __del__(self):
+        print ("[PLC Control] : Stopping the Robot")
+        self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m1_addr], dword_values=[0])
+        self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m2_addr], dword_values=[0])
+
 
 if __name__ == '__main__':
     # Initializing Node
