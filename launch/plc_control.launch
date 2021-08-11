@@ -3,7 +3,7 @@
 
   <arg name = "wheel_radius"  default = "0.075" />
   <arg name = "wheel_dist"    default = "0.72" />
-  <arg name = "plc_ip_addr"   default = "192.168.1.39" />
+  <arg name = "plc_ip_addr"   default = "192.168.0.39" />
   <arg name="respawn"         default="true" />
   
   <!-- run teleop_plc -->  
