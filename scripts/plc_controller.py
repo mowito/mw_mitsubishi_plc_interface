@@ -73,7 +73,7 @@ class TeleopPLC:
         self.odom_pub_duration = 1.0/(self.odom_pub_freq)
 
 	    # connect to plc
-        self.mq3_plc.connect(self.plc_ip, self.plc_port)
+        self.mq3_plc.connect(self.plc_ip, self.plc_port, timeout=5.0)
 
         # Defining publishers
         self.odom_pub = rospy.Publisher("odom", Odometry, queue_size=10)
