@@ -1,21 +1,11 @@
 <?xml version="1.0" ?>
 <launch>
-
-  <arg name = "wheel_radius"  default = "0.075" />
-  <arg name = "wheel_dist"    default = "0.72" />
-  <arg name = "plc_ip_addr"   default = "192.168.0.39" />
   <arg name="respawn"         default="true" />
   
   <!-- run teleop_plc -->  
   <node pkg="mw_mitsubishi_plc_interface" type="plc_controller.py" name="plc_controller" output="screen" respawn="$(arg respawn)">
-    <param name = "wheel_radius"      type = "double" value = "$(arg wheel_radius)" />
-    <param name = "wheel_dist"        type = "double" value = "$(arg wheel_dist)" />
     <param name = "odom_pub_rate"     type = "double" value = "100" />
-    <param name = "plc_ip_addr"       type = "string" value = "$(arg plc_ip_addr)" />
     <param name = "plc_port"          type = "int"    value = "8888" />
-    <param name = "motor1_addr"       type = "string" value = "D100" />
-    <param name = "motor2_addr"       type = "string" value = "D110" />
-    <param name = "encoder1_addr"     type = "string" value = "D120" />
-    <param name = "encoder2_addr"     type = "string" value = "D130" />
+    <rosparam command="load"          file="$(find mw_mitsubishi_plc_interface)/config/motor_config.yaml" />
   </node>
 </launch>

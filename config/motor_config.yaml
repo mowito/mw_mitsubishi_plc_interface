@@ -1,0 +1,21 @@
+#PLC motor controller config values
+
+#wheel radius
+wheel_radius: 0.1
+
+#wheel base - distance between the two wheels
+wheel_base: 0.6
+
+# gear ratio for encoder readings
+gear_ratio: 30
+
+plc_ip_addr: "192.168.0.39"
+
+motor1_addr: "D100"
+
+motor2_addr: "D110"
+
+encoder1_addr: "D120"
+
+encoder2_addr: "D130"
+

@@ -27,6 +27,7 @@ from nav_msgs.msg import Odometry
 from mw_mitsubishi_plc_interface.msg import encoder_data
 import struct
 import math
+import time
 
 
 class TeleopPLC:
@@ -39,8 +40,9 @@ class TeleopPLC:
         self.m2_rpm = 0
         self.encoder1_val = 0
         self.encoder2_val = 0
-        self.wheel_radius = rospy.get_param("wheel_radius", 0.1)
-        self.wheel_dist   = rospy.get_param("wheel_dist", 0.6)
+        self.wheel_radius = rospy.get_param("~wheel_radius", 0.1)
+        self.wheel_dist   = rospy.get_param("~wheel_dist", 0.6)
+        self.gear_ratio   = rospy.get_param("~gear_ratio", 30)
         self.last_time = rospy.Time.now()
         self.pose = Pose2D()
         self.pose.x = 0.0
@@ -61,19 +63,30 @@ class TeleopPLC:
         
 	# Defining the registers to read PLC actuators and sensors
         self.mq3_plc = pymcprotocol.Type3E()
-        self.plc_ip = rospy.get_param("plc_ip_addr", "192.168.0.39")
+        self.plc_ip = rospy.get_param("~plc_ip_addr", "192.168.0.39")
         self.plc_port   = rospy.get_param("plc_port", 8888)
-        self.m1_addr = rospy.get_param("motor1_addr", "D100")
-        self.m2_addr = rospy.get_param("motor2_addr", "D110")
-        self.encoder1_addr = rospy.get_param("encoder1_addr", "D120")
-        self.encoder2_addr = rospy.get_param("encoder2_addr", "D130")
+        self.m1_addr = rospy.get_param("~motor1_addr", "D100")
+        self.m2_addr = rospy.get_param("~motor2_addr", "D110")
+        self.encoder1_addr = rospy.get_param("~encoder1_addr", "D120")
+        self.encoder2_addr = rospy.get_param("~encoder2_addr", "D130")
 
         # Defining odometer publish frequency
         self.odom_pub_freq = rospy.get_param("odom_pub_rate", 10)
         self.odom_pub_duration = 1.0/(self.odom_pub_freq)
 
 	    # connect to plc
+        rospy.loginfo("[PLC Motor Control] : Connecting to PLC Motor Controller")
         self.mq3_plc.connect(self.plc_ip, self.plc_port, timeout=5.0)
+
+        while self.mq3_plc._is_connected==False:
+            rospy.logerr("[PLC Motor Control]: PLC Motor controller not connected... Re-attemping connection")
+            self.mq3_plc.connect(self.plc_ip, self.plc_port, timeout=5.0)
+        
+        time.sleep(1.0)
+
+        if self.mq3_plc._is_connected==True:
+            rospy.loginfo("[PLC Motor Control] : Connected to PLC Motor Controller")
+
 
         # Defining publishers
         self.odom_pub = rospy.Publisher("odom", Odometry, queue_size=10)
@@ -115,6 +128,16 @@ class TeleopPLC:
         q.append(wq)
         return q
 
+    # Callback to attempt connection to PLC
+    def PLC_reconnect(self):
+        while self.mq3_plc._is_connected==False:
+            rospy.logerr("[PLC Motor Controller]: PLC motor controller not connected. Attempting connection to PLC.")
+            self.mq3_plc.connect(self.plc_ip, self.plc_port, timeout=5.0)
+        
+        if self.mq3_plc._is_connected==True:
+            rospy.loginfo("[PLC Motor Controller]: PLC motor controller connected.")
+
+
     # A callback function to publish Odometry Data
     def publish_odom_data(self, timer):
         
@@ -126,14 +149,17 @@ class TeleopPLC:
             # Read Encoder Data from PLC
             _, self.plc_encoder1_values = self.mq3_plc.randomread(word_devices = [], dword_devices = [self.encoder1_addr])
             _, self.plc_encoder2_values = self.mq3_plc.randomread(word_devices = [], dword_devices = [self.encoder2_addr])
-            self.encoder1_val = self.plc_encoder1_values[0]
-            self.encoder2_val = self.plc_encoder2_values[0]
+        else:
+            self.PLC_reconnect()
+
+        self.encoder1_val = self.plc_encoder1_values[0]
+        self.encoder2_val = self.plc_encoder2_values[0]
         if (self.encoder1_val > 2**32/2):
             self.encoder1_val = self.encoder1_val - 2**32
         if (self.encoder2_val > 2**32/2):
             self.encoder2_val = self.encoder2_val - 2**32
-        self.encoder1_val = self.encoder1_val/70
-        self.encoder2_val = self.encoder2_val/70
+        self.encoder1_val = self.encoder1_val/(self.gear_ratio * 10)
+        self.encoder2_val = self.encoder2_val/(self.gear_ratio * 10)
         
         self.encoder2_val = self.encoder2_val *-1
 
@@ -229,7 +255,7 @@ class TeleopPLC:
         return v_x, v_y, w
     
     def __del__(self):
-        print ("[PLC Control] : Stopping the Robot")
+        rospy.loginfo("[PLC Motor Control] : Stopping the Robot")
         self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m1_addr], dword_values=[0])
         self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m2_addr], dword_values=[0])
 
