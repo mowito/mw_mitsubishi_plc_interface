@@ -39,8 +39,8 @@ class TeleopPLC:
         self.m2_rpm = 0
         self.encoder1_val = 0
         self.encoder2_val = 0
-        self.wheel_radius = rospy.get_param("wheel_radius", 0.075)
-        self.wheel_dist   = rospy.get_param("wheel_dist", 0.72)
+        self.wheel_radius = rospy.get_param("wheel_radius", 0.1)
+        self.wheel_dist   = rospy.get_param("wheel_dist", 0.6)
         self.last_time = rospy.Time.now()
         self.pose = Pose2D()
         self.pose.x = 0.0
@@ -61,7 +61,7 @@ class TeleopPLC:
         
 	# Defining the registers to read PLC actuators and sensors
         self.mq3_plc = pymcprotocol.Type3E()
-        self.plc_ip = rospy.get_param("plc_ip_addr", "192.168.1.39")
+        self.plc_ip = rospy.get_param("plc_ip_addr", "192.168.0.39")
         self.plc_port   = rospy.get_param("plc_port", 8888)
         self.m1_addr = rospy.get_param("motor1_addr", "D100")
         self.m2_addr = rospy.get_param("motor2_addr", "D110")
@@ -73,7 +73,7 @@ class TeleopPLC:
         self.odom_pub_duration = 1.0/(self.odom_pub_freq)
 
 	    # connect to plc
-        self.mq3_plc.connect(self.plc_ip, self.plc_port, timeout=10)
+        self.mq3_plc.connect(self.plc_ip, self.plc_port)
 
         # Defining publishers
         self.odom_pub = rospy.Publisher("odom", Odometry, queue_size=10)

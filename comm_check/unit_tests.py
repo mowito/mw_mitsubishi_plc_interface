@@ -45,7 +45,7 @@ def main():
     
     # set the IP address for PLC1
     #pymc3e.setaccessopt(commtype="ascii")
-    ip_addr = "192.168.1.39"
+    ip_addr = "192.168.0.39"
     port    = 8888
 
     # Setup Logger
@@ -55,7 +55,7 @@ def main():
     # connect to PLC
     logger.info('Connecting to PLC')
     try:
-        pymc3e.connect(ip_addr, port, timeout=1.0)
+        pymc3e.connect(ip_addr, port)
     except OSError:
         pymc3e._is_connected = False
 
