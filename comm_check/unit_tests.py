@@ -130,11 +130,11 @@ def main():
                 write_val = (i + 1)*0.1 + 5
                 real_val.append(write_val)
                 # write to register
-                #print("Writing value : "+ str(write_val) + " to register " + reg)
                 logger.info('Writing value : %s to register %s', str(write_val), reg)
-                pymc3e.batchwrite_wordunits(headdevice = reg, values = real_val)
+                #pymc3e.batchwrite_wordunits(headdevice = reg, values = real_val)
+                pymc3e.randomwrite(word_devices=[], word_values=[], dword_devices=[reg], dword_values=[real_val])
                 # read register value
-                read_val = pymc3e.batchread_wordunits(headdevice = reg, readsize = 1)
+                _, read_val = pymc3e.randomread(word_devices=[], word_values=[], dword_devices=[reg], dword_values=[real_val])
                 #print("Value read from register " + reg + " is : " + str(read_val))
                 logger.info('Value read from register %s is : %s', reg, str(read_val[0]))
                 # comparing if write and read register is true
