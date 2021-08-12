@@ -171,8 +171,8 @@ class TeleopPLC:
 
         # compute odometry information 
         dt      = (current_time - self.last_time).to_sec()
-        dx      = ((v_x*math.cos(self.pose.theta))*dt)
-        dy      = ((v_x*math.sin(self.pose.theta))*dt)
+        dx      = (v_x*dt)
+        dy      = (v_y*dt)
         dtheta  = (w * dt)
         self.pose.x     = self.pose.x + dx
         self.pose.y     = self.pose.y + dy
