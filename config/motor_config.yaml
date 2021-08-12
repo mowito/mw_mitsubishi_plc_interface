@@ -1,7 +1,7 @@
 #PLC motor controller config values
 
 #wheel radius
-wheel_radius: 0.1
+wheel_radius: 0.1089
 
 #wheel base - distance between the two wheels
 wheel_base: 0.6
