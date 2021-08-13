@@ -245,11 +245,11 @@ class TeleopPLC:
 
         # Calculate Linear and Angular velocity for the robot
         v_lin = (self.wheel_radius/2)*(w_r + w_l)
-        w     = (self.wheel_radius/self.wheel_dist)*(w_r - w_l)*-1
+        w     = (self.wheel_radius/self.wheel_dist)*(w_r - w_l)
 
         # Calculate x and y component of linear velocity
-        v_x = v_lin * math.cos(-self.pose.theta)
-        v_y = v_lin * math.sin(-self.pose.theta)
+        v_x = v_lin * math.cos(self.pose.theta)
+        v_y = v_lin * math.sin(self.pose.theta)
 
         # Return the linear velocity components(v_x and v_y) and angular velocity(w)
         return v_x, v_y, w
