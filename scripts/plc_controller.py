@@ -143,8 +143,8 @@ class TeleopPLC:
         
         if (self.mq3_plc._is_connected==True):
             # Write to PLC motors
-            self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m1_addr], dword_values=[self.plc_motor1_rpm])
-            self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m2_addr], dword_values=[self.plc_motor2_rpm])
+            self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m1_addr], dword_values=[100*self.plc_motor1_rpm])
+            self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m2_addr], dword_values=[100*self.plc_motor2_rpm])
 
             # Read Encoder Data from PLC
             _, self.plc_encoder1_values = self.mq3_plc.randomread(word_devices = [], dword_devices = [self.encoder1_addr])
