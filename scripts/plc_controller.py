@@ -146,7 +146,7 @@ class TeleopPLC:
         if (self.mq3_plc._is_connected==True):
             # Write to PLC motors
 
-            print('final sent motor 1 rpm ', self.plc_motor1_rpm, ' motor 2 rpm ', self.plc_motor2_rpm)
+            # print('final sent motor 1 rpm ', self.plc_motor1_rpm, ' motor 2 rpm ', self.plc_motor2_rpm)
             try: 
                 self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m1_addr], dword_values=[self.plc_motor1_rpm])
                 self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m2_addr], dword_values=[self.plc_motor2_rpm])
@@ -250,6 +250,7 @@ class TeleopPLC:
     # A function to convert encoder to odometry
     def _encoder_to_odometry(self):
         # Convert encoder data to linear and angular velocity
+        # 9.549297 = 60/(2*pi)
         w_l = self.encoder1_val/9.549297
         w_r = self.encoder2_val/9.549297
 
