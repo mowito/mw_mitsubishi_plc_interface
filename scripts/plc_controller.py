@@ -229,8 +229,9 @@ class TeleopPLC:
         # defining motor rpm for forward motion
         w_r = w_r *-1
         
-        m1_rpm = self.mult_factor*int(9.549297 * w_l)
-        m2_rpm = self.mult_factor*int(9.549297 * w_r)
+        # 9.549297 = 60/(2*pi)
+        m1_rpm = int(self.mult_factor*9.549297 * w_l)
+        m2_rpm = int(self.mult_factor*9.549297 * w_r)
 
         
 
