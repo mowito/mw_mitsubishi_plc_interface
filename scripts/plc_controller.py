@@ -60,6 +60,8 @@ class TeleopPLC:
         self.plc_encoder2_values.append(self.encoder2_val)
         self.plc_encoder1_values.append(self.encoder1_val)
         self.plc_encoder1_values.append(self.encoder1_val)
+
+        self.mult_factor = 100
         
 	# Defining the registers to read PLC actuators and sensors
         self.mq3_plc = pymcprotocol.Type3E()
@@ -143,13 +145,13 @@ class TeleopPLC:
         
         if (self.mq3_plc._is_connected==True):
             # Write to PLC motors
-            # self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m1_addr], dword_values=[100*self.plc_motor1_rpm])
-            # self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m2_addr], dword_values=[100*self.plc_motor2_rpm])
-            print('motor 1 rpm ', self.plc_motor1_rpm, ' motor 2 rpm ', self.plc_motor2_rpm)
-            print(self.plc_motor1_rpm,self.plc_motor2_rpm)
 
-            self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m1_addr], dword_values=[50])
-            self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m2_addr], dword_values=[50])
+            print('final sent motor 1 rpm ', self.plc_motor1_rpm, ' motor 2 rpm ', self.plc_motor2_rpm)
+            try: 
+                self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m1_addr], dword_values=[self.plc_motor1_rpm])
+                self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m2_addr], dword_values=[self.plc_motor2_rpm])
+            except Exception as e:
+                print(e)
 
             # Read Encoder Data from PLC
             _, self.plc_encoder1_values = self.mq3_plc.randomread(word_devices = [], dword_devices = [self.encoder1_addr])
@@ -227,8 +229,10 @@ class TeleopPLC:
         # defining motor rpm for forward motion
         w_r = w_r *-1
         
-        m1_rpm = int(9.549297 * w_l)
-        m2_rpm = int(9.549297 * w_r)
+        m1_rpm = self.mult_factor*int(9.549297 * w_l)
+        m2_rpm = self.mult_factor*int(9.549297 * w_r)
+
+        
 
         if (m1_rpm < 0):
 	        m1_rpm = m1_rpm + 2**32
