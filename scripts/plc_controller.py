@@ -145,11 +145,11 @@ class TeleopPLC:
             # Write to PLC motors
             # self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m1_addr], dword_values=[100*self.plc_motor1_rpm])
             # self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m2_addr], dword_values=[100*self.plc_motor2_rpm])
-
+            print('motor 1 rpm ', self.plc_motor1_rpm, ' motor 2 rpm ', self.plc_motor2_rpm)
             print(self.plc_motor1_rpm,self.plc_motor2_rpm)
 
-            self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m1_addr], dword_values=[100*self.plc_motor1_rpm+12])
-            self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m2_addr], dword_values=[100*self.plc_motor2_rpm+12])
+            self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m1_addr], dword_values=[50])
+            self.mq3_plc.randomwrite(word_devices = [], word_values=[], dword_devices=[self.m2_addr], dword_values=[50])
 
             # Read Encoder Data from PLC
             _, self.plc_encoder1_values = self.mq3_plc.randomread(word_devices = [], dword_devices = [self.encoder1_addr])
